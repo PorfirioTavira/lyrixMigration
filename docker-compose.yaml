@@ -1,0 +1,12 @@
+services:
+  sql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    platform: linux/amd64
+    env_file: .env
+    ports:
+      - "1433:1433"
+    volumes:
+    - sqlvolume:/var/opt/mssql
+
+volumes:
+  sqlvolume:

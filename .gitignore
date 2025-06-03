@@ -1,2 +1,7 @@
 lyrix-backend/obj/Debug/net9.0/lyrix-backend.AssemblyInfo.cs
 lyrix-backend/obj/Debug/net9.0/lyrix-backend.AssemblyInfoInputs.cache
+.env
+lyrix-backend/obj/Debug/net9.0/rjsmrazor.dswa.cache.json
+lyrix-backend/obj/Debug/net9.0/rjsmcshtml.dswa.cache.json
+*.dll
+*.dll
