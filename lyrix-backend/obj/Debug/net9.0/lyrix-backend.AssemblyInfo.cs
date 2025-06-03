@@ -10,10 +10,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("5f86967c-866a-46b6-8691-9d89c021fce7")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("lyrix-backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c8d086cdbe092261ba76bcd4159645b47dae995d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d910bea2d5460ad5ee44c69704f6043a823cf1a2")]
 [assembly: System.Reflection.AssemblyProductAttribute("lyrix-backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("lyrix-backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
