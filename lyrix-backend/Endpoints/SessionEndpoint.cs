@@ -8,9 +8,12 @@ public static class SessionEndpoints
 {
     public static RouteGroupBuilder MapSessionEndpoints(this RouteGroupBuilder group)
     {
-        group.MapPost("/", async (SessionDbContext db, SessionCreateDto dto) =>
+        group.MapPost("/", async (SessionDbContext db) =>
         {
-            var session = new Session { SessionID = dto.SessionID };
+            var session = new Session
+            {
+                SessionID = Guid.NewGuid().ToString()
+            };
             db.Sessions.Add(session);
             await db.SaveChangesAsync();
 
@@ -22,5 +25,5 @@ public static class SessionEndpoints
         return group;
     }
 }
-
-public record SessionCreateDto(string SessionID);
+//The DTO seems to be the Data Transfer Object that is used to pass in the argumgents for the object and to post to the database.
+//public record SessionCreateDto(string SessionID);
