@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("lyrix-backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+174e68e1e85bab20fbccaad61a3af03aeeeed2a2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9e3afc3149bcfc361f68ec5ac521e35642c3552c")]
 [assembly: System.Reflection.AssemblyProductAttribute("lyrix-backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("lyrix-backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
