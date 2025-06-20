@@ -8,7 +8,7 @@ public record class Session
     public int Id { get; init; } //PK
     public string? SessionID { get; init; }
 
-    public string? AccessToken { get; init; }
+    public string? AccessToken { get; set; }
 
-    public string? RefreshToken { get; init; }
+    public string? RefreshToken { get; set; }
 }

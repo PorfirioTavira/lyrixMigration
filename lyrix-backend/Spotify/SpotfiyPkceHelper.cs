@@ -19,5 +19,20 @@ class PkceHelper
         return sb.ToString();
     }
 
+    public static byte[] Sha256(string input)
+    {
+        using SHA256 sha = SHA256.Create();
+        return sha.ComputeHash(Encoding.ASCII.GetBytes(input));
+    }
+
+    public static string Base64UrlEncode(byte[] bytes)
+    {
+        string encoded = Convert.ToBase64String(bytes);
+        encoded = encoded.TrimEnd('=')
+                         .Replace('+', '-')
+                         .Replace('/', '_');
+        return encoded;
+    }
+
 }
 

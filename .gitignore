@@ -5,3 +5,11 @@ lyrix-backend/obj/Debug/net9.0/rjsmrazor.dswa.cache.json
 lyrix-backend/obj/Debug/net9.0/rjsmcshtml.dswa.cache.json
 *.dll
 *.dll
+lyrix-backend/bin/Debug/net9.0/lyrix-backend.dll
+*.dll
+lyrix-backend/obj/Debug/net9.0/lyrix-backend.AssemblyInfo.cs
+*.cache
+*.pdb
+*.json
+*.dll
+*.dll
