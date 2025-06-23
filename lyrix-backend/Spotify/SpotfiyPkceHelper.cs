@@ -4,7 +4,6 @@ namespace Backend.Spotfiy;
 
 class PkceHelper
 {
-    private string CodeVerifier = GenerateRandString(60);
     public static string GenerateRandString(int length)
     {
         const string Possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -25,7 +24,7 @@ class PkceHelper
         return sha.ComputeHash(Encoding.ASCII.GetBytes(input));
     }
 
-    public static string Base64UrlEncode(byte[] bytes)
+    public static string Base64Encode(byte[] bytes)
     {
         string encoded = Convert.ToBase64String(bytes);
         encoded = encoded.TrimEnd('=')

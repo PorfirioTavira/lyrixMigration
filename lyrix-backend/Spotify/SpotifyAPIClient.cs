@@ -6,7 +6,7 @@ using System.Web;
 using System.Collections.Generic;
 namespace Backend.Spotfiy;
 
-class SpotifyAPIClient
+class SpotifyAPIClient: ISpotifyAPIClient
 {
     private string ClientId;
     private string ClientSecret;
@@ -22,7 +22,7 @@ class SpotifyAPIClient
         this.CodeChallenge = CodeChallenge;
     }
     //non-static methods are for when you want to refer to object state.
-    public string accessCodeQuery(string uniqueID)
+    public Task<string> AccessCodeQuery(string uniqueID)
     {
 
         var queryParams = new Dictionary<string, string>
@@ -36,8 +36,8 @@ class SpotifyAPIClient
             {"code_challenge" , this.CodeChallenge }
         };
         string queryString = string.Join("&", queryParams.Select(kvp => $"{Uri.EscapeDataString(kvp.Key)}={Uri.EscapeDataString(kvp.Value)}"));
-
-        return queryString;
+        queryString = $"https://accounts.spotify.com/authorize?{queryString}";
+        return Task.FromResult(queryString);
 
 
     }
