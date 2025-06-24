@@ -24,3 +24,9 @@ lyrix-backend/obj/project.nuget.cache
 *.cache
 lyrix-backend/obj/Debug/net9.0/lyrix-backend.AssemblyInfoInputs.cache
 lyrix-backend/obj/Debug/net9.0/lyrix-backend.AssemblyInfoInputs.cache
+lyrix-backend/obj/lyrix-backend.csproj.nuget.g.targets
+lyrix-backend/obj/lyrix-backend.csproj.nuget.g.props
+lyrix-backend/obj/Debug/net9.0/lyrix-backend.GlobalUsings.g.cs
+lyrix-backend/obj/Debug/net9.0/lyrix-backend.GeneratedMSBuildEditorConfig.editorconfig
+lyrix-backend/obj/Debug/net9.0/lyrix-backend.AssemblyInfoInputs.cache
+lyrix-backend/obj/Debug/net9.0/lyrix-backend.AssemblyInfoInputs.cache

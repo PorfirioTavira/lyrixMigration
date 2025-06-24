@@ -4,22 +4,30 @@ using System.Net.Http;
 using Microsoft.OpenApi.Models;
 using System.Web;
 using System.Collections.Generic;
-namespace Backend.Spotfiy;
+namespace Backend.Spotify;
 
-class SpotifyAPIClient: ISpotifyAPIClient
+internal class SpotifyAPIClient: ISpotifyAPIClient
 {
     private string ClientId;
     private string ClientSecret;
     private string RedirectUri;
     private string CodeVerifier;
     private string CodeChallenge;
-    public SpotifyAPIClient(string ClientId, string ClientSecret, string RedirectUri, string CodeVerifier, string CodeChallenge)
+
+    private HttpClient http;
+    public SpotifyAPIClient(string ClientId,
+                            string ClientSecret,
+                            string RedirectUri,
+                            string CodeVerifier,
+                            string CodeChallenge,
+                            HttpClient http)
     {
         this.ClientId = ClientId;
         this.ClientSecret = ClientSecret;
         this.RedirectUri = RedirectUri;
         this.CodeVerifier = CodeVerifier;
         this.CodeChallenge = CodeChallenge;
+        this.http = http;
     }
     //non-static methods are for when you want to refer to object state.
     public Task<string> AccessCodeQuery(string uniqueID)

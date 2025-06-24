@@ -1,6 +1,6 @@
-using Microsoft.OpenApi.Validations;
 using MyApi.Data;
-using MyApi.Models; 
+using MyApi.Models;
+using Backend.Spotify;
 namespace MyApi.Endpoints;
 
 public static class SessionEndpoints
@@ -20,13 +20,13 @@ public static class SessionEndpoints
         })
         .Produces<Session>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status400BadRequest);
-/*         group.MapGet("/getAccessCode", async (SessionDbContext db) =>
+         group.MapGet("/getAccessCode", async (SessionDbContext db) =>
         {
 
         }
         ).Produces<Session>(StatusCodes.Status200OK)
         .Produces<Session>(StatusCodes.Status400BadRequest);
-        */
+        
         return group;
     }
 }

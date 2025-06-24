@@ -1,4 +1,4 @@
-namespace Backend.Spotfiy;
+namespace Backend.Spotify;
 
 public interface ISpotifyAPIClient
 {

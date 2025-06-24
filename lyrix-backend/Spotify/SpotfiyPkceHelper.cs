@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
-namespace Backend.Spotfiy;
+namespace Backend.Spotify;
 
 class PkceHelper
 {
