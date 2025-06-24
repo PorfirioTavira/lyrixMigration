@@ -22,3 +22,5 @@ lyrix-backend/obj/lyrix-backend.csproj.nuget.dgspec.json
 lyrix-backend/obj/project.assets.json
 lyrix-backend/obj/project.nuget.cache
 *.cache
+lyrix-backend/obj/Debug/net9.0/lyrix-backend.AssemblyInfoInputs.cache
+lyrix-backend/obj/Debug/net9.0/lyrix-backend.AssemblyInfoInputs.cache
