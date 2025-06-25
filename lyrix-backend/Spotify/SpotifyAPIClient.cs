@@ -1,9 +1,3 @@
-using System.Text;
-using System.Text.Json;
-using System.Net.Http;
-using Microsoft.OpenApi.Models;
-using System.Web;
-using System.Collections.Generic;
 namespace Backend.Spotify;
 
 internal class SpotifyAPIClient: ISpotifyAPIClient
@@ -11,27 +5,29 @@ internal class SpotifyAPIClient: ISpotifyAPIClient
     private string ClientId;
     private string ClientSecret;
     private string RedirectUri;
-    private string CodeVerifier;
-    private string CodeChallenge;
-
     private HttpClient http;
-    public SpotifyAPIClient(string ClientId,
-                            string ClientSecret,
-                            string RedirectUri,
-                            string CodeVerifier,
-                            string CodeChallenge,
-                            HttpClient http)
+    private string CodeChallenge;
+    private string CodeVerifier;
+
+    public SpotifyAPIClient(
+        HttpClient http,
+        IConfiguration cfg)
     {
-        this.ClientId = ClientId;
-        this.ClientSecret = ClientSecret;
-        this.RedirectUri = RedirectUri;
-        this.CodeVerifier = CodeVerifier;
-        this.CodeChallenge = CodeChallenge;
+        this.ClientId = cfg["Spotify:ClientID"]
+                            ?? throw new ArgumentNullException("ClientID is missing");
+        this.RedirectUri = cfg["Spotify:RedirectURI"]
+                            ?? throw new ArgumentNullException("RedirectURI is missing");
         this.http = http;
+        this.ClientSecret = cfg["Spotify:ClientSecret"]
+                            ?? throw new ArgumentException("ClientSecret is missing");
+        this.CodeVerifier = PkceHelper.GenerateRandString(60);
+        this.CodeChallenge = PkceHelper.Base64Encode(PkceHelper.Sha256(this.CodeVerifier));
+
     }
     //non-static methods are for when you want to refer to object state.
     public Task<string> AccessCodeQuery(string uniqueID)
     {
+        string codeVerifier = PkceHelper.GenerateRandString(60);
 
         var queryParams = new Dictionary<string, string>
         {
@@ -46,7 +42,7 @@ internal class SpotifyAPIClient: ISpotifyAPIClient
         string queryString = string.Join("&", queryParams.Select(kvp => $"{Uri.EscapeDataString(kvp.Key)}={Uri.EscapeDataString(kvp.Value)}"));
         queryString = $"https://accounts.spotify.com/authorize?{queryString}";
         return Task.FromResult(queryString);
-
+        
 
     }
 }

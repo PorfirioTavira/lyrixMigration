@@ -5,22 +5,28 @@ using MyApi.Endpoints;
 using Backend.Spotify;
 using System.Security.Permissions;
 using DotNetEnv.Extensions;
-var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-var envVars = DotNetEnv.Env.NoEnvVars().TraversePath().Load().ToDotEnvDictionary();
-var code = PkceHelper.GenerateRandString(60);
-var hashed = PkceHelper.Sha256(code);
-var codeChallenge = PkceHelper.Base64Encode(hashed);
-var spotifyApiClient = new SpotifyAPIClient(envVars["CLIENT_ID"],envVars["CLIENT_SECRET"],envVars["REDIRECT_URI"], code, codeChallenge);
+DotNetEnv.Env.TraversePath().Load();
+var builder = WebApplication.CreateBuilder(args);
+var cfg = builder.Configuration;
+
+//Setup Database connection string.
 var connectionString =
-    builder.Configuration.GetConnectionString("Default")
+    cfg.GetConnectionString("Default")
         ?? throw new InvalidOperationException("Connection string"
         + "'Default' not found.");
-Console.WriteLine(await spotifyApiClient.AccessCodeQuery("1234567"));
 builder.Services.AddDbContext<SessionDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+//Register SpotfiyAPIClient. This will pass in http client, builder.Configuration which contains loaded env vars.
+builder.Services.AddHttpClient<ISpotifyAPIClient, SpotifyAPIClient>(http =>
+{
+    http.BaseAddress = new Uri("https://api.spotify.com/v1/");
+});
+
+
 
 builder.Services.AddOpenApi();
 
@@ -38,6 +44,19 @@ if (app.Environment.IsDevelopment())
         options.RoutePrefix = string.Empty;  // root path → http://localhost:5001/
     });
     app.MapOpenApi();
+}
+
+await using (var scope = app.Services.CreateAsyncScope())
+{
+    var spotify = scope.ServiceProvider.GetRequiredService<ISpotifyAPIClient>();
+
+    // build a throw-away state value for CSRF protection
+    string state   = Guid.NewGuid().ToString("N");
+
+    // call the method on your client (returns Task<string>)
+    string authUrl = await spotify.AccessCodeQuery(state);
+
+    Console.WriteLine($"Auth URL → {authUrl}");
 }
 
 app.MapGroup("/sessions")
