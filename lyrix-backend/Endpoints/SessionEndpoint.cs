@@ -1,7 +1,8 @@
-using MyApi.Data;
-using MyApi.Models;
+using Backend.Data;
+using Backend.Models;
 using Backend.Spotify;
-namespace MyApi.Endpoints;
+using Backend.Dto;
+namespace Backend.Endpoints;
 
 public static class SessionEndpoints
 {
@@ -20,15 +21,20 @@ public static class SessionEndpoints
         })
         .Produces<Session>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status400BadRequest);
-         group.MapGet("/getAccessCode", async (SessionDbContext db) =>
-        {
 
-        }
-        ).Produces<Session>(StatusCodes.Status200OK)
-        .Produces<Session>(StatusCodes.Status400BadRequest);
-        
+        group.MapGet("/getAccessCode", GetAccessCode
+       ).Produces<AccessCodeDto>(StatusCodes.Status200OK)
+       .Produces<AccessCodeDto>(StatusCodes.Status400BadRequest);
+
         return group;
+
     }
+    private static async Task<AccessCodeDto> GetAccessCode(ISpotifyAPIClient spotify, string uniqueID)
+    {
+        string queryString = await spotify.AccessCodeQuery(uniqueID);
+        return await Task.FromResult<AccessCodeDto>(new AccessCodeDto(uniqueID, queryString));
+    }
+    
 }
 //The DTO seems to be the Data Transfer Object that is used to pass in the argumgents for the object and to post to the database.
 //public record SessionCreateDto(string SessionID);

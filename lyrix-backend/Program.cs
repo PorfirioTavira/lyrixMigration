@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using MyApi.Data;
-using MyApi.Models;
-using MyApi.Endpoints;
+using Backend.Data;
+using Backend.Endpoints;
 using Backend.Spotify;
 using System.Security.Permissions;
 using DotNetEnv.Extensions;
@@ -46,18 +45,7 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-await using (var scope = app.Services.CreateAsyncScope())
-{
-    var spotify = scope.ServiceProvider.GetRequiredService<ISpotifyAPIClient>();
 
-    // build a throw-away state value for CSRF protection
-    string state   = Guid.NewGuid().ToString("N");
-
-    // call the method on your client (returns Task<string>)
-    string authUrl = await spotify.AccessCodeQuery(state);
-
-    Console.WriteLine($"Auth URL → {authUrl}");
-}
 
 app.MapGroup("/sessions")
     .MapSessionEndpoints();

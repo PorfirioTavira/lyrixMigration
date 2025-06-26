@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using MyApi.Models;
+using Backend.Models;
 
-namespace MyApi.Data;
+namespace Backend.Data;
 
 public class SessionDbContext : DbContext
 {
